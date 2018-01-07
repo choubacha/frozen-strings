@@ -10,3 +10,4 @@ Benchmark.bmbm do |x|
   x.report("frozen") { 100_000_000.times { test } }
 end
 
+puts "GC Collected: #{GC.count}"
