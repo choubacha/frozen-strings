@@ -4,8 +4,18 @@ def test
   'hello world'
 end
 
+def json
+  '{"hello world":null}'
+end
+
+require 'json'
 require 'benchmark'
 
-Benchmark.bmbm do |x|
-  x.report('unfrozen') { 100_000_000.times { test } }
+Benchmark.bm do |x|
+  x.report('non-literal') do
+    1_000_000.times do
+      hash = JSON.parse(json)
+      100.times { hash[test] }
+    end
+  end
 end
